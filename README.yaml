@@ -1,11 +1,11 @@
 ---
-# 
+#
 # This is the canonical configuration for the `README.md`
 # Run `make readme` to rebuild the `README.md`
 #
 
 # Name of this project
-name: Build Harness 
+name: Build Harness
 
 # Logo for this project
 #logo: docs/logo.png
@@ -19,7 +19,7 @@ copyrights:
     url: "https://cloudposse.com"
     year: "2016"
 
-# Canonical GitHub repo 
+# Canonical GitHub repo
 github_repo: cloudposse/build-harness
 
 # Badges to display
@@ -37,7 +37,7 @@ badges:
 related:
   - name: "Packages"
     description: "Cloud Posse installer and distribution of native apps"
-    url: "https://github.com/cloudposse/packages"
+    url: "https://github.com/unionpos/packages"
   - name: "Dev Harness"
     description: "Cloud Posse Local Development Harness"
     url: "https://github.com/cloudposse/dev"
@@ -53,7 +53,7 @@ screenshots:
   - name: "demo"
     description: "Example of using the `build-harness` to build a docker image"
     url: "https://cdn.rawgit.com/cloudposse/build-harness/master/docs/demo.svg"
- 
+
 # Short description of this project
 description: |-
   This `build-harness` is a collection of Makefiles to facilitate building Golang projects, Dockerfiles, Helm charts, and more.

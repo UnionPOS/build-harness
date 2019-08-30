@@ -1,7 +1,11 @@
 export SHELL = /bin/bash
-export BUILD_HARNESS_ORG ?= cloudposse
+export BUILD_HARNESS_ORG ?= unionpos
 export BUILD_HARNESS_PROJECT ?= build-harness
 export BUILD_HARNESS_BRANCH ?= master
+export BASH_COMMONS_ORG ?= russellatuniondashpos
+export BASH_COMMONS_PROJECT ?= bash-commons
+export BASH_COMMONS_BRANCH ?= master
+
 export BUILD_HARNESS_PATH ?= $(shell until [ -d "$(BUILD_HARNESS_PROJECT)" ] || [ "`pwd`" == '/' ]; do cd ..; done; pwd)/$(BUILD_HARNESS_PROJECT)
 -include $(BUILD_HARNESS_PATH)/Makefile
 
@@ -9,11 +13,15 @@ export BUILD_HARNESS_PATH ?= $(shell until [ -d "$(BUILD_HARNESS_PROJECT)" ] || 
 ## Init build-harness
 init::
 	@curl --retry 5 --fail --silent --retry-delay 1 https://raw.githubusercontent.com/$(BUILD_HARNESS_ORG)/$(BUILD_HARNESS_PROJECT)/$(BUILD_HARNESS_BRANCH)/bin/install.sh | \
-		bash -s "$(BUILD_HARNESS_ORG)" "$(BUILD_HARNESS_PROJECT)" "$(BUILD_HARNESS_BRANCH)"
+		bash -s "$(BUILD_HARNESS_ORG)" "$(BUILD_HARNESS_PROJECT)" "$(BUILD_HARNESS_BRANCH)" "$(BASH_COMMONS_ORG)" "$(BASH_COMMONS_PROJECT)" "$(BASH_COMMONS_BRANCH)"
 
-.PHONY : clean
+.PHONY : clean-build-harness
 ## Clean build-harness
-clean::
-	@[ "$(BUILD_HARNESS_PATH)" == '/' ] || \
-	 [ "$(BUILD_HARNESS_PATH)" == '.' ] || \
-	   echo rm -rf $(BUILD_HARNESS_PATH)
+clean-build-harness::
+	@[ "$(BUILD_HARNESS_PATH)" == '/' ] || [ "$(BUILD_HARNESS_PATH)" == '.' ] || \
+	   echo rm -rf $(BUILD_HARNESS_PATH) \
+	   echo rm -rf .build-harness
+
+.PHONY : refresh-build-harness
+## reload build harness from upstream
+refresh-build-harness:: clean-build-harness init
