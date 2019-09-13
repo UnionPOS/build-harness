@@ -77,3 +77,7 @@ trap 'catch_interrupt $? ${LINENO}' INT
 trap 'catch_error $? ${LINENO}' ERR
 # trap script exit
 trap 'catch_exit $?' EXIT
+
+TMPDIR=$(mktemp -d 2>/dev/null || mktemp -d -t 'TMPDIR')
+export STDOUT_LOG="${TMPDIR}/stdout.log"
+export STDERR_LOG="${TMPDIR}/stderr.log"
