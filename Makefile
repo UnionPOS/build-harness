@@ -41,3 +41,7 @@ ifndef TRANSLATE_COLON_NOTATION
 %:
 	@$(SELF) -s $(subst :,/,$@) TRANSLATE_COLON_NOTATION=false
 endif
+
+## Build docker image
+build:
+	@make docker/build
