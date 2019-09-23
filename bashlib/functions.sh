@@ -131,7 +131,7 @@ function sudo_passwordless {
   else
     if [ ! -f /etc/sudoers.d/"$user" ]; then
       # shellcheck disable=SC2024
-      echo "$user ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/"$user" >> "$SETUPLOG"
+      echo "$user ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/"$user"
     fi
   fi
 }
