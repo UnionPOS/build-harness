@@ -66,6 +66,15 @@ function is_valid_service_group() {
   echo "$group"
 }
 
+function is_valid_terminal_id() {
+  local terminal_id="$1"
+  if ! is_number "$terminal_id"; then
+    (>&2 echo "terminal_id should be a number")
+    exit 1
+  fi
+  echo "$terminal_id"
+}
+
 function is_valid_venue_id() {
   local venue_id="$1"
   if ! is_number "$venue_id"; then
