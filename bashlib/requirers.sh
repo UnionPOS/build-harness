@@ -2,9 +2,9 @@
 
 function require_brew() {
   running "Check Requirement: $*"
-  if ! brew ls --versions "$@" >> "$SETUPLOG" 2>&1
+  if ! brew ls --versions "$@"
   then
-    if ! brew install "$@" >> "$SETUPLOG" 2>&1
+    if ! brew install "$@"
     then
       error "failed to install $*! aborting..."
     fi
@@ -15,7 +15,7 @@ function require_brew() {
 function require_gem() {
   require_rvm
   running "Check Requirement: gem $*"
-  if ! gem install "$@" >> "$SETUPLOG" 2>&1
+  if ! gem install "$@"
   then
     error "failed to install gem $*"
   fi
@@ -24,7 +24,7 @@ function require_gem() {
 
 function require_homebrew() {
   running "Check Requirement: HomeBrew/LinuxBrew"
-  if ! command -v brew >> "$SETUPLOG" 2>&1
+  if ! command -v brew
   then
     if test "$NS_PLATFORM" == "darwin"; then
       bot "Installing Homebrew"
@@ -62,7 +62,7 @@ function require_homebrew() {
 
 function require_node(){
   running "Check Requirement: NodeJS"
-  if ! node -v >> "$SETUPLOG" 2>&1
+  if ! node -v
   then
     action "installing NodeJS"
     brew install node
@@ -74,7 +74,7 @@ function require_nodeversion() {
   require_nvm
   running "Check Requirement: Node verion $*"
   source "$NVM_DIR/nvm.sh"
-  if ! nvm install "$@" >> "$SETUPLOG" 2>&1
+  if ! nvm install "$@"
   then
     error "failed to install Node version $*"
   fi
@@ -83,7 +83,7 @@ function require_nodeversion() {
 
 function require_npm() {
   running "Check Requirement: npm $*"
-  if ! npm install -g "$@" >> "$SETUPLOG" 2>&1
+  if ! npm install -g "$@"
   then
     error "failed to intall npm $*"
   fi
@@ -99,7 +99,7 @@ function require_nvm() {
   then
     bot "Installing NVM"
     latest=$(curl https://api.github.com/repos/nvm-sh/nvm/releases/latest -s | jq .name -r)
-    if ! curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/$latest/install.sh" | bash >> "$SETUPLOG" 2>&1
+    if ! curl -o- "https://raw.githubusercontent.com/nvm-sh/nvm/$latest/install.sh" | bash
     then
       error "failed to install NVM! aborting..."
       exit 2
@@ -119,14 +119,14 @@ function require_nvm() {
 
 function require_pip() {
   running "Check Requirement: $*"
-  if ! command -v pip >> "$SETUPLOG" 2>&1
+  if ! command -v pip
   then
     if [ "$NS_PLATFORM" == "linux" ]; then
       # shellcheck disable=SC2024
-      sudo apt-get -y install python-pip >> "$SETUPLOG" 2>&1
+      sudo apt-get -y install python-pip
     fi
   fi
-  if ! pip install "$@" >> "$SETUPLOG" 2>&1
+  if ! pip install "$@"
   then
     error "failed to install $*! aborting..."
   fi
@@ -135,14 +135,14 @@ function require_pip() {
 
 function require_pip3() {
   running "Check Requirement: $*"
-  if ! command -v pip3 >> "$SETUPLOG" 2>&1
+  if ! command -v pip3
   then
     if [ "$NS_PLATFORM" == "linux" ]; then
       # shellcheck disable=SC2024
-      sudo apt-get -y install python-pip3 >> "$SETUPLOG" 2>&1
+      sudo apt-get -y install python-pip3
     fi
   fi
-  if ! pip3 install "$@" >> "$SETUPLOG" 2>&1
+  if ! pip3 install "$@"
   then
     error "failed to install $*! aborting..."
   fi
@@ -152,11 +152,11 @@ function require_pip3() {
 function require_rubyversion() {
   require_rvm
   running "Check Requirement: Ruby verion $*"
-  if ! rvm install "$@" >> "$SETUPLOG" 2>&1
+  if ! rvm install "$@"
   then
     error "failed to install Node version $*"
   fi
-  rvm use "$@" >> "$SETUPLOG" 2>&1
+  rvm use "$@"
   ok
 }
 
@@ -167,7 +167,7 @@ function require_rvm() {
   then
     bot "Installing RVM"
     command curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
-    if ! curl -sSL https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma >> "$SETUPLOG" 2>&1
+    if ! curl -sSL https://get.rvm.io | bash -s stable --ruby=jruby --gems=rails,puma
     then
       error "failed to install RVM! aborting..."
       exit 2
