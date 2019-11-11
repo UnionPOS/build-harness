@@ -12,6 +12,8 @@ source "${LIBDIR}/banner.sh"
 source "${LIBDIR}/echos.sh"
 # shellcheck source=./file.sh
 source "${LIBDIR}/file.sh"
+# shellcheck source=./format.sh
+source "${LIBDIR}/format.sh"
 # shellcheck source=./functions.sh
 source "${LIBDIR}/functions.sh"
 # shellcheck source=./guard.sh
