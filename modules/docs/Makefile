@@ -16,3 +16,19 @@ docs/targets.md: docs/deps
 ## Update `docs/terraform.md` from `terraform-docs`
 docs/terraform.md: docs/deps packages/install/terraform-docs
 	@$(BUILD_HARNESS_PATH)/bin/terraform-docs.sh md . > $@
+
+.PHONY : docs/serverless.md
+CONFIGS = $(wildcard ./config/vpc-*.js)
+## Update `docs/serverless_<stage>.md` from `serverless info`
+docs/serverless.md:
+	@array=(${CONFIGS}) ; \
+	for file in "$${array[@]}" ; do \
+		stage=$$(echo $$(basename $$file) | cut -d'-' -f 2 | cut -d'.' -f 1 ) ; \
+		( \
+			echo "## Service Information for $${stage} stage" ; \
+			echo ; \
+			echo '```txt' ; \
+			serverless info --stage $${stage} ; \
+			echo '```' ; \
+		) > ./docs/serverless_$${stage}.md ; \
+	done
