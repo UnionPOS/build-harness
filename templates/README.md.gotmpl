@@ -60,6 +60,14 @@
 {{ end }}
 {{ end -}}
 
+{{- if has (ds "config") "service_information" }}
+## Service Information
+
+{{ range $file := (datasource "config").service_information -}}
+{{ (include "includes" $file) }}
+{{ end }}
+{{ end -}}
+
 {{- if has (ds "config") "references" }}
 ## References
 
