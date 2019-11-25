@@ -20,7 +20,7 @@ docs/terraform.md: docs/deps packages/install/terraform-docs
 .PHONY : docs/serverless.md
 CONFIGS = $(wildcard ./config/vpc-*.js)
 ## Update `docs/serverless_<stage>.md` from `serverless info`
-docs/serverless.md:
+docs/serverless.md: docs/deps 
 	@array=(${CONFIGS}) ; \
 	for file in "$${array[@]}" ; do \
 		stage=$$(echo $$(basename $$file) | cut -d'-' -f 2 | cut -d'.' -f 1 ) ; \
