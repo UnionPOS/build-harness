@@ -28,7 +28,7 @@ docs/serverless.md: docs/deps
 			echo "## Service Information for $${stage} stage" ; \
 			echo ; \
 			echo '```txt' ; \
-			serverless info --stage $${stage} ; \
+			./node_modules/.bin/serverless info --stage $${stage} ; \
 			echo '```' ; \
 		) > ./docs/serverless_$${stage}.md ; \
 	done
