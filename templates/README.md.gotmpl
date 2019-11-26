@@ -68,6 +68,19 @@
 {{ end }}
 {{ end -}}
 
+{{- if has (ds "config") "testing" }}
+## Testing
+
+{{ (ds "config").testing }}
+{{ end -}}
+
+{{- if has (ds "config") "deploying" }}
+## Deploying
+
+{{ (ds "config").deploying }}
+{{ end -}}
+
+
 {{- if has (ds "config") "references" }}
 ## References
 
