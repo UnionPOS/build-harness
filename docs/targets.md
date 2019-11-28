@@ -5,6 +5,9 @@ Available targets:
   aws/install                         Install aws cli bundle
   aws/shell                           Start a aws-vault shell with access to aws api
   bash/lint                           Lint all bash scripts
+  brew/install                        brew install $(PROJNAME)
+  brew/remove                         brew remove $(PROJNAME)
+  build                               Build docker image
   chamber/install                     Install chamber
   chamber/shell                       Start a chamber shell with secrets exported to the environment
   codefresh/export                    DEPRECATED!!! Export codefresh additional envvars
@@ -98,7 +101,7 @@ Available targets:
   jenkins/run-job-with-tag            Run a Jenkins Job with $(TAG)
   make/lint                           Lint all makefiles
   packages/delete                     Delete packages
-  packages/install                    Install packages 
+  packages/install                    Install packages
   packages/install/%                  Install package (e.g. helm, helmfile, kubectl)
   packages/reinstall                  Reinstall packages
   packages/reinstall/%                Reinstall package (e.g. helm, helmfile, kubectl)

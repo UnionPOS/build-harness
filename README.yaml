@@ -110,8 +110,11 @@ examples: |-
 
 # How to get started quickly
 quickstart: |-
+  ## Quick Start
+
   Here's how to get started...
 
+  1. ensure you have a [baseline configuration](https://github.com/UnionPOS/baseline/)
   1. `git clone https://github.com/cloudposse/build-harness.git` to pull down the repository
   2. `make init` to initialize the [`build-harness`](https://github.com/cloudposse/build-harness/)
 
