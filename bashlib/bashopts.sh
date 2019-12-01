@@ -36,13 +36,23 @@ export PS4='+(${BASH_SOURCE}:${LINENO}): ${FUNCNAME[0]:+${FUNCNAME[0]}(): }'
 # setup traps for error, exit, and interrupt
 function on_error() {
   error_msg="$0 task error: ${1:-}"
+
   log_dump=""
   if [ -f "$STDERR_LOG" ]
   then
     log_dump=$(cat "$STDERR_LOG")
   fi
-  # shellcheck disable=SC1117
-  /opt/union/bin/union-slack-msg "union-$INF_ENVIRONMENT-alarms" "$error_msg\n$log_dump" "#ffccaa"
+
+  if [[ ! -z "$INF_ERROR_CHANNEL" ]]
+  then
+    # if INF_ERROR_CHANNEL is set send slack notification
+    # shellcheck disable=SC1117
+    /opt/union/bin/union-slack-msg "$INF_ERROR_CHANNEL" "$error_msg\n$log_dump" "#ffccaa"
+  else
+    # if INF_ERROR_CHANNEL is not set send output to console
+    echo "$error_msg"
+    echo "$log_dump"
+  fi
 }
 
 function on_exit() {
