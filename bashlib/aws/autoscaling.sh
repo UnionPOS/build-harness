@@ -106,10 +106,12 @@ export -f asg_resume_processes
 function asg_set_health_check_type() {
   local ASG_NAME="$1"
   local TYPE="${2:-"EC2"}"
+  local GRACE="${3:-"600"}"
 
   aws autoscaling update-auto-scaling-group \
     --auto-scaling-group-name "$ASG_NAME" \
-    --health-check-type "$TYPE"
+    --health-check-type "$TYPE" \
+    --health-check-grace-period "$GRACE"
 }
 export -f asg_set_health_check_type
 
