@@ -20,6 +20,16 @@ function asg_name_from_tag() {
 export -f asg_name_from_tag
 
 
+function asg_attach_instances() {
+  local ASG_NAME="$1"
+  local INSTANCE_ID="$2"
+
+  aws autoscaling attach-instances \
+    --instance-ids "$INSTANCE_ID" \
+    --auto-scaling-group-name "$ASG_NAME"
+}
+export -f asg_attach_instances
+
 function asg_describe_instance() {
   local ASG_NAME="$1"
   local INSTANCE_ID="$2"
@@ -54,16 +64,6 @@ function asg_describe_lifecycle_hooks() {
     --query "LifecycleHooks[*].LifecycleHookName"
 }
 export -f asg_describe_lifecycle_hooks
-
-function asg_attach_instances() {
-  local ASG_NAME="$1"
-  local INSTANCE_ID="$2"
-
-  aws autoscaling attach-instances \
-    --instance-ids "$INSTANCE_ID" \
-    --auto-scaling-group-name "$ASG_NAME"
-}
-export -f asg_attach_instances
 
 function asg_delete() {
   local ASG_NAME="$1"
@@ -103,6 +103,16 @@ function asg_resume_processes() {
 }
 export -f asg_resume_processes
 
+function asg_set_health_check_type() {
+  local ASG_NAME="$1"
+  local TYPE="${2:-"EC2"}"
+
+  aws autoscaling update-auto-scaling-group \
+    --auto-scaling-group-name "$ASG_NAME" \
+    --health-check-type "$TYPE"
+}
+export -f asg_set_health_check_type
+
 function asg_set_instance_health() {
   local ID="$1"
   local STATUS="${2:-"Healthy"}"
@@ -112,14 +122,6 @@ function asg_set_instance_health() {
     --health-status "$STATUS"
 }
 export -f asg_set_instance_health
-
-function asg_suspend_processes() {
-  local ASG_NAME="$1"
-
-  aws autoscaling suspend-processes \
-    --auto-scaling-group-name "$ASG_NAME"
-}
-export -f asg_suspend_processes
 
 function asg_set_desired_size() {
   local ASG_NAME="$1"
@@ -162,6 +164,14 @@ function asg_set_size() {
     --min-size "$SIZE"
 }
 export -f asg_set_size
+
+function asg_suspend_processes() {
+  local ASG_NAME="$1"
+
+  aws autoscaling suspend-processes \
+    --auto-scaling-group-name "$ASG_NAME"
+}
+export -f asg_suspend_processes
 
 function asg_wait_detached() {
   local ASG_NAME="$1"
