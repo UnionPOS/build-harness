@@ -62,6 +62,7 @@ function rds_wait_until_status() {
   local id="$1"
   local desired="${2:-"available"}"
   local delay="${3:-120}"
+  local status=""
 
   until [[ "$desired" = "$status" ]]
   do
