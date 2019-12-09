@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# AWS ec2 functions
+# AWS s3 functions
 
 function s3_copy() {
   local FROM="$1"
