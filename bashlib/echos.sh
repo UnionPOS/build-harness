@@ -74,3 +74,12 @@ function warn() {
   local -r msg="${1:-}"
   (>&2 echo -e "${C_YELLOW}[warning]${C_RESET} ${msg}")
 }
+
+function wait_user_confirm() {
+  read -n1 -rsp $'Press Y continue or Ctrl+C to exit...\n' key
+  if [ "$key" = 'Y' ]; then
+    echo '' # Y pressed, continue
+  else
+    wait_user_confirm # Anything else pressed, repeat prompt
+  fi
+}
