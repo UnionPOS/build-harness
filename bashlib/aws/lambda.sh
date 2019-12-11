@@ -23,7 +23,7 @@ function lambda_invoke() {
     echo "#######################################################################"
     echo "StatusCode: $(echo "$result" | jq .StatusCode)"
     echo "LogResult: "
-    echo "$(echo "$result" | jq -r .LogResult | base64 -d)"
+    echo "$(echo "$result" | jq -r .LogResult | base64 -D)"
     echo "#######################################################################"
   fi
 
