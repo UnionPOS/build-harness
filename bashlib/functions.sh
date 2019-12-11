@@ -71,6 +71,9 @@ function get_osx_version() {
       14)
         export OSX_VERSION="Mojave"
         ;;
+      15)
+        export OSX_VERSION="Catalina"
+        ;;
       *)
         die "unrecognized osx version"
         ;;
@@ -83,6 +86,7 @@ function get_platform() {
   if [ "$(uname -s)" == "Darwin" ]; then
     # Do something for OSX
     export NS_PLATFORM="darwin"
+    get_osx_version
   elif [ "$(uname -s)" == "Linux" ]; then
   	# Do something for Linux platform
   	# assume ubuntu - but surely this can be extended to include other distros
