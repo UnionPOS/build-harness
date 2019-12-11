@@ -1,7 +1,12 @@
 #!/usr/bin/env bash
 
-# AWS Lambda functions
+LIBDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# shellcheck source=./../echos.sh
+source "${LIBDIR}/../functions.sh"
 
+get_platform
+
+# AWS Lambda functions
 function lambda_invoke() {
   local invocation_type="RequestResponse"
   local log_type="Tail"
@@ -23,7 +28,11 @@ function lambda_invoke() {
     echo "#######################################################################"
     echo "StatusCode: $(echo "$result" | jq .StatusCode)"
     echo "LogResult: "
-    echo "$(echo "$result" | jq -r .LogResult | base64 -D)"
+    if [ "Darwin" = "$NS_PLATFORM" ] && [ "Catalina" != "$OSX_VERSION"]; then
+      echo "$(echo "$result" | jq -r .LogResult | base64 -D)"
+    else
+      echo "$(echo "$result" | jq -r .LogResult | base64 -d)"
+    fi
     echo "#######################################################################"
   fi
 
