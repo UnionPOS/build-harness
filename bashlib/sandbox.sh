@@ -29,6 +29,7 @@ function list_containers() {
   echo "12. GoAWS"
   echo "13. FakeS3"
   echo "14. MicroMDM"
+  echo "15. Smithers"
 }
 
 function instance_name_from_selection() {
@@ -60,6 +61,8 @@ function instance_name_from_selection() {
     13) instance=fakes3.union
       ;;
     14) instance=micromdm.union
+      ;;
+    15) instance=smithers.union
       ;;
     *)
       instance=""
