@@ -33,6 +33,9 @@ function mapdaemon() {
     'seqmon')
       fullname="union-seqmon"
       ;;
+    'smithers')
+      fullname="union-smithers"
+      ;;
     'sqs')
       fullname="union-sqs-pipe"
       ;;
