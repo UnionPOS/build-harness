@@ -58,7 +58,7 @@ function is_valid_stack() {
 
 function is_valid_service_group() {
   local group="$1"
-  local valid="vpn bots api build couchbase couchbasexdcr couchworker foundry logiapp mdm mdmworker sftp sqsworker syncgateway"
+  local valid="vpn bots api build couchbase couchbasexdcr couchworker foundry logiapp mdm mdmworker sftp sqsworker syncgateway smithers"
   if ! contains "$valid" "$group"; then
     (>&2 echo "invalid service group $group")
     exit 1
