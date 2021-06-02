@@ -28,7 +28,7 @@ default:: $(DEFAULT_HELP_TARGET)
 	@exit 0
 
 ## Help screen
-help:
+help::
 	@printf "Available targets:\n\n"
 	@$(SELF) -s help/generate | grep -E "\w($(HELP_FILTER))"
 
