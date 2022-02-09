@@ -38,11 +38,32 @@ function ec2_private_ip() {
 }
 export -f ec2_private_ip
 
+function ec2_is_instance_running() {
+  local INSTANCE_ID="$1"
+
+  state=`aws ec2 describe-instance-status \
+        --instance-ids "$INSTANCE_ID" \
+        --query 'InstanceStatuses[0].InstanceState.Name' \
+        --output text`
+  if [ $state == 'running' ]
+  then
+    return 0
+  else
+    return 1
+  fi
+}
+export -f ec2_is_instance_running
+
 function terminate_instances() {
   local INSTANCE_ID="$1"
 
-  aws ec2 terminate-instances \
+  if ec2_is_instance_running $INSTANCE_ID; then
+    aws ec2 terminate-instances \
     --instance-ids "$INSTANCE_ID"
+  else
+    echo "Instance $INSTANCE_ID not in running state, skipping"
+  fi
 }
 export -f terminate_instances
+
 
