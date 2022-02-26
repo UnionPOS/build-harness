@@ -24,9 +24,14 @@ function asg_attach_instances() {
   local ASG_NAME="$1"
   local INSTANCE_ID="$2"
 
-  aws autoscaling attach-instances \
-    --instance-ids "$INSTANCE_ID" \
-    --auto-scaling-group-name "$ASG_NAME"
+  if ec2_is_instance_running $INSTANCE_ID; then
+    aws autoscaling attach-instances \
+      --instance-ids "$INSTANCE_ID" \
+      --auto-scaling-group-name "$ASG_NAME"
+  else
+    echo "Instance $INSTANCE_ID not in running state, skipping"
+  fi
+
 }
 export -f asg_attach_instances
 
@@ -88,10 +93,15 @@ function asg_detach_instances() {
   local ASG_NAME="$1"
   local INSTANCE_ID="$2"
 
-  aws autoscaling detach-instances \
-    --instance-ids "$INSTANCE_ID" \
-    --auto-scaling-group-name "$ASG_NAME" \
-    --should-decrement-desired-capacity
+  if ec2_is_instance_running $INSTANCE_ID; then
+    aws autoscaling detach-instances \
+        --instance-ids "$INSTANCE_ID" \
+        --auto-scaling-group-name "$ASG_NAME" \
+        --should-decrement-desired-capacity
+  else
+    echo "Instance $INSTANCE_ID not in running state, skipping"
+  fi
+
 }
 export -f asg_detach_instances
 
