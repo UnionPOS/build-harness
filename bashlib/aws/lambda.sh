@@ -14,6 +14,7 @@ function lambda_invoke() {
     --function-name "$function_name" \
     --region "$region" \
     --log-type "$log_type" \
+    --cli-binary-format raw-in-base64-out \
     --payload "$payload" \
     "$results_file")"
 
