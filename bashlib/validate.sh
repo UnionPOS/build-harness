@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+function get_valid_doctypes() {
+  echo "employee-status employee-status-server end-of-day-status menu menu-schedule menu-overrides online-order payments-client tab tab-customers-server tab-customers-client venue venue-customers"
+}
+
+function get_valid_stacks() {
+  echo "mgmt dev qa prod"
+}
+
+function get_valid_service_groups() {
+  echo "vpn bots api build couchbase couchbasexdcr couchworker foundry logiapp mdm mdmworker sftp sqsworker syncgateway smithers"
+}
+
 function is_empty() {
   local var="$1"
   [ -z "$var" ]
@@ -48,7 +60,7 @@ function contains() {
 
 function is_valid_stack() {
   local stack="$1"
-  local valid="mgmt dev qa prod"
+  local valid="$(get_valid_stacks)"
   if ! contains "$valid" "$stack"; then
     (>&2 echo "invalid stack $stack")
     exit 1
@@ -58,7 +70,7 @@ function is_valid_stack() {
 
 function is_valid_service_group() {
   local group="$1"
-  local valid="vpn bots api build couchbase couchbasexdcr couchworker foundry logiapp mdm mdmworker sftp sqsworker syncgateway smithers"
+  local valid="$(get_valid_service_groups)"
   if ! contains "$valid" "$group"; then
     (>&2 echo "invalid service group $group")
     exit 1
@@ -86,19 +98,10 @@ function is_valid_venue_id() {
 
 function is_valid_doctype() {
   local stack="$1"
-  local valid="employee-status employee-status-server end-of-day-status menu menu-schedule menu-overrides online-order payments-client tab tab-customers-server tab-customers-client venue venue-customers"
-  if ! contains "$valid" "$stack"; then
+  local valid="$(get_valid_doctypes)"
+ if ! contains "$valid" "$stack"; then
     (>&2 echo "invalid stack $stack")
     exit 1
   fi
   echo "$stack"
 }
-
-
-
-
-
-
-
-
-
