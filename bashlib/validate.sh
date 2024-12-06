@@ -9,7 +9,7 @@ function get_valid_stacks() {
 }
 
 function get_valid_service_groups() {
-  echo "vpn bots api build couchbase couchbasexdcr couchworker foundry logiapp mdm mdmworker sftp sqsworker syncgateway smithers"
+  echo "vpn bots api build couchbase couchbasexdcr couchworker foundry logiapp mdm mdmworker sftp sqsworker syncgateway smithers celery"
 }
 
 function is_empty() {
