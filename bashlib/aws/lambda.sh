@@ -9,7 +9,7 @@ function lambda_invoke() {
   local region="${AWS_REGION:-"us-west-2"}"
   local results_file="lambda_invoke_result"
 
-  # Detect if the processor is ARM
+  # Detect if the processor is ARM (includes Apple Silicon like M1, M2, M3)
   if [[ "$(uname -m)" == "arm64" || "$(uname -m)" == "aarch64" ]]; then
     result="$(aws lambda invoke \
       --invocation-type "$invocation_type" \
