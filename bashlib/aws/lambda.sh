@@ -9,13 +9,25 @@ function lambda_invoke() {
   local region="${AWS_REGION:-"us-west-2"}"
   local results_file="lambda_invoke_result"
 
-  result="$(aws lambda invoke \
-    --invocation-type "$invocation_type" \
-    --function-name "$function_name" \
-    --region "$region" \
-    --log-type "$log_type" \
-    --payload "$payload" \
-    "$results_file")"
+  # Detect if the processor is ARM
+  if [[ "$(uname -m)" == "arm64" || "$(uname -m)" == "aarch64" ]]; then
+    result="$(aws lambda invoke \
+      --invocation-type "$invocation_type" \
+      --function-name "$function_name" \
+      --region "$region" \
+      --log-type "$log_type" \
+      --cli-binary-format raw-in-base64-out \
+      --payload "$payload" \
+      "$results_file")"
+  else
+    result="$(aws lambda invoke \
+      --invocation-type "$invocation_type" \
+      --function-name "$function_name" \
+      --region "$region" \
+      --log-type "$log_type" \
+      --payload "$payload" \
+      "$results_file")"
+  fi
 
   if [[ -n ${DECODE:-} ]]
   then
