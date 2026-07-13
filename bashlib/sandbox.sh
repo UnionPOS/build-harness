@@ -31,6 +31,7 @@ function list_containers() {
   echo "14. MicroMDM"
   echo "15. Smithers"
   echo "16. FakeSSM"
+  echo "17. Payment API"
 }
 
 function instance_name_from_selection() {
@@ -66,6 +67,8 @@ function instance_name_from_selection() {
     15) instance=smithers.union
       ;;
     16) instance=fakessm.union
+      ;;
+    17) instance=payment-api.union
       ;;
     *)
       instance=""
